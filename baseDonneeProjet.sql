@@ -1,4 +1,4 @@
---######################################################################
+/*--######################################################################
 --	Noms/Prénoms :		TOURE Boubacar & BARRO Juliette
 --	Date		 :		04/03/2021
 --	Description	 :
@@ -6,72 +6,10 @@
 --		CONVOCATIONS SPORTIVES.
 --
 --######################################################################
-	--DESTRUCTION DES TABLES
-	DROP TABLE IF EXISTS Joueur CASCADE;
-	DROP TABLE IF EXISTS Equipe CASCADE;
-	DROP TABLE IF EXISTS Administrateur CASCADE;
-	DROP TABLE IF EXISTS Club CASCADE;
-
--- CREATION DE LA BASE DE DONNÉES
--- CREATE DATABASE IF NOT EXISTS projetPHP;
-
--- DESTRUCTION DE LA BASE DE DONNÉES
--- DROP DATABASE IF NOT EXISTS projetPHP;
-
--- CREATION DES TABLES
-CREATE TABLE IF NOT EXISTS Club (
-	id			SERIAL,
-	nom			VARCHAR(30),
-	effectif	INT,
-	adresse		VARCHAR(30),
-	CONSTRAINT c_ClubPK PRIMARY KEY (id),
-	CONSTRAINT c_nom CHECK (nom IS NOT NULL),
-	CONSTRAINT c_effectif CHECK (effectif >= 11)
-);
-
-CREATE TABLE IF NOT EXISTS Administrateur (
-	id			SERIAL,
-	poste		VARCHAR(30),
-	nom			VARCHAR(30),
-	prenom		VARCHAR(30),
-	categorie	VARCHAR(30) DEFAULT 'Senior',
-	idClub		INT,
-	CONSTRAINT c_AdministrateurPK PRIMARY KEY (id, poste),
-	CONSTRAINT c_poste CHECK (poste IN ('Secretaire', 'Entraineur')),
-	CONSTRAINT c_nom CHECK (nom IS NOT NULL),
-	CONSTRAINT c_prenom CHECK (prenom IS NOT NULL),
-	CONSTRAINT c_categorie CHECK (categorie IN ('Senior')),
-	CONSTRAINT c_AdministrateurSK FOREIGN KEY (idClub) REFERENCES Club (id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Equipe (
-	id			SERIAL,
-	nom			VARCHAR(30),
-	effectif	INT,
-	idClub		INT,
-	CONSTRAINT c_EquipePK PRIMARY KEY (id),
-	CONSTRAINT c_nom CHECK (nom IS NOT NULL),
-	CONSTRAINT c_effectif CHECK (effectif >= 11),
-	CONSTRAINT c_EquipeSK FOREIGN KEY (idClub) REFERENCES Club (id) ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS Joueur (
-	id			SERIAL,
-	licence		VARCHAR(30) DEFAULT 'OUI',
-	nom			VARCHAR(30),
-	prenom		VARCHAR(30),
-	etatJoueur  VARCHAR(30) DEFAULT 'DISPONIBLE',
-	idClub		INT,
-	CONSTRAINT c_JoueurPK PRIMARY KEY (id),
-	CONSTRAINT c_licence CHECK (licence IN ('OUI', 'NON')),
-	CONSTRAINT c_nom CHECK (nom IS NOT NULL),
-	CONSTRAINT c_prenom CHECK (prenom IS NOT NULL),
-	CONSTRAINT c_etatJoueur CHECK (etatJoueur IN ('DISPONIBLE','INDISPONIBLE','SUSPENDU')),
-	CONSTRAINT c_JoueurSK FOREIGN KEY (idClub) REFERENCES Club (id) ON DELETE CASCADE
-);
 
 -- INSERTION DES N-UPLETS DANS LES TABLES
 --			DANS LA TABLE Club
+*/
 INSERT INTO Club (nom, effectif, adresse) VALUES ('Olympique Marseille', 12, 'Marseille');
 INSERT INTO Club (nom, effectif, adresse) VALUES ('PSG', 14, 'Paris');
 INSERT INTO Club (nom, effectif, adresse) VALUES ('Olympique Lyonnais', 11, 'Lyon');
@@ -79,7 +17,7 @@ INSERT INTO Club (nom, effectif, adresse) VALUES ('Angers SCO', 14, 'Angers');
 INSERT INTO Club (nom, effectif, adresse) VALUES ('Nice FC', 15, 'Nice');
 INSERT INTO Club (nom, effectif, adresse) VALUES ('Monaco FC', 14, 'Monaco');
 
---			DANS LA TABLE Administrateur
+/*--			DANS LA TABLE Administrateur	*/
 INSERT INTO Administrateur (poste, nom, prenom, categorie, idClub) VALUES ('Secretaire', 'TOURE', 'Boubacar', 'Senior', 1);
 INSERT INTO Administrateur (poste, nom, prenom, categorie, idClub) VALUES ('Entraineur', 'TOURE', 'Siriman', 'Senior', 1);
 INSERT INTO Administrateur (poste, nom, prenom, categorie, idClub) VALUES ('Secretaire', 'Barro', 'Juliette', 'Senior', 2);
@@ -93,7 +31,7 @@ INSERT INTO Administrateur (poste, nom, prenom, categorie, idClub) VALUES ('Entr
 INSERT INTO Administrateur (poste, nom, prenom, categorie, idClub) VALUES ('Secretaire', 'THOMAS', 'Tuchel', 'Senior', 6);
 INSERT INTO Administrateur (poste, nom, prenom, categorie, idClub) VALUES ('Entraineur', 'ZIDANE', 'ZINEDINE', 'Senior', 6);
 
---			DANS LA TABLE Equipe
+/*--			DANS LA TABLE Equipe			*/
 INSERT INTO Equipe (nom, effectif, idClub) VALUES ('Equipe A', 11, 1);
 INSERT INTO Equipe (nom, effectif, idClub) VALUES ('Equipe B', 12, 1);
 INSERT INTO Equipe (nom, effectif, idClub) VALUES ('Equipe A', 11, 2);
@@ -106,7 +44,7 @@ INSERT INTO Equipe (nom, effectif, idClub) VALUES ('Equipe B', 15, 5);
 INSERT INTO Equipe (nom, effectif, idClub) VALUES ('Equipe A', 11, 6);
 INSERT INTO Equipe (nom, effectif, idClub) VALUES ('Equipe B', 14, 6);
 
---			DANS LA TABLE Joueur
+/*--			DANS LA TABLE Joueur			*/
 INSERT INTO Joueur (licence, nom, prenom, idClub) VALUES ('OUI', 'Mandanda', 'S', 1);
 INSERT INTO Joueur (licence, nom, prenom, idClub) VALUES ('OUI', 'Pelé', 'Y', 1);
 INSERT INTO Joueur (licence, nom, prenom, idClub) VALUES ('OUI', 'Sakai', 'H', 1);
@@ -193,8 +131,8 @@ INSERT INTO Joueur (licence, nom, prenom, idClub) VALUES ('OUI', 'Ben Yedder', '
 INSERT INTO Joueur (licence, nom, prenom, idClub) VALUES ('OUI', 'Volland', 'K', 6);
 INSERT INTO Joueur (licence, nom, prenom, idClub) VALUES ('OUI', 'Martins', 'G', 6);
 
---	AFFICHAGE DES N-UPLETS DES TABLES
 /*
+--	AFFICHAGE DES N-UPLETS DES TABLES
 SELECT * FROM Club;
 SELECT * FROM Administrateur;
 SELECT * FROM Equipe;

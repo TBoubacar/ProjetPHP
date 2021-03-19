@@ -19,5 +19,11 @@ class Administrateur extends Modele {
             return $administrateurs;
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR TOUS LES ADMINISTRATEURS DU CLUB
+    
+    public function getAllAdministrateur() {
+        $sql = "SELECT * FROM Administrateur";
+        $administrateurs = $this->executeRequete($sql);
+        return $administrateurs;
+    }
 }
 ?>

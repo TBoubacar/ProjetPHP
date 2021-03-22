@@ -1,10 +1,12 @@
 <?php
-// require_once 'Controleur/ControleurAccueil.php';
-// require_once 'Controleur/ControleurConnexion.php';
-require_once __DIR__ . '/../Contenu/vendor/autoload.php';
+declare(strict_types=1);
+require_once 'Controleur/ControleurAccueil.php';
+require_once 'Controleur/ControleurConnexion.php';
+require_once 'Vue/Vue.php';
+/*require_once __DIR__ . '/../Contenu/vendor/autoload.php';
 use Acme\ControleurConnexion;
 use Acme\ControleurAccueil;
-use Acme\Vue;
+use Acme\Vue;*/
 
 class Routeur {
 

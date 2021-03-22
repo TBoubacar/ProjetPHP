@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace Acme;
+//namespace Acme;
 
 class Vue
 {
@@ -13,7 +13,7 @@ class Vue
     public function __construct($action)
     {
         // Détermination du nom du fichier vue à partir de l'action
-        $this->fichier = "Vue/vue" . $action . ".php";
+        $this->fichier = "Vue/Vue" . $action . ".php";
     }
 
     // Génère et affiche la vue

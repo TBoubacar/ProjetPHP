@@ -1,9 +1,10 @@
 <?php
 declare(strict_types=1);
-// require_once 'Modele.php';
-namespace Acme;
+require_once 'Modele.php';
+/*namespace Acme;
 require_once __DIR__ . '/../Contenu/vendor/autoload.php';
 use Acme\Modele;
+*/
 
 class Club extends Modele {
     

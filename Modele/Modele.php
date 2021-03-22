@@ -6,8 +6,8 @@ abstract class Modele {
     
     public function getBDD() {
         if ($this->bdd == NULL) {
-            $this->bdd = new PDO("mysql:host='localhost';dbname='projetPHPBDD';charset='UTF8'",
-                'TBoubacar', 'Bouba@223', array(PDO::ERRMODE => PDO::ERRMODE_EXCEPTION));
+            $this->bdd = new PDO("mysql:host='localhost';dbname='projetPHP';charset='UTF8'",
+                'etudiant', 'etudiant', array(PDO::ERRMODE => PDO::ERRMODE_EXCEPTION));
             return $this->bdd;
         } else return $this->bdd;
     }

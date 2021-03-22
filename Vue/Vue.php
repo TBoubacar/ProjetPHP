@@ -1,8 +1,8 @@
 <?php
+declare(strict_types=1);
+namespace Acme;
 
-class Vue
-{
-
+class Vue {
     // Nom du fichier associé à la vue
     private $fichier;
 

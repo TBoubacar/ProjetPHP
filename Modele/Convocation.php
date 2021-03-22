@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
-require_once 'Modele.php';
+// require_once 'Modele.php';
+require_once __DIR__ . '/../Contenu/vendor/autoload.php';
+use Acme\Modele;
 
 class Convocation extends Modele {
     

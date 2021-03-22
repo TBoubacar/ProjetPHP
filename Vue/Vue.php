@@ -1,7 +1,7 @@
 <?php
 
 class Vue
-{
+{s
 
     // Nom du fichier associé à la vue
     private $fichier;

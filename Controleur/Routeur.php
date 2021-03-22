@@ -1,6 +1,9 @@
 <?php
-require_once 'Controleur/ControleurAccueil.php';
-require_once 'Controleur/ControleurConnexion.php';
+// require_once 'Controleur/ControleurAccueil.php';
+// require_once 'Controleur/ControleurConnexion.php';
+use Acme\ControleurConnexion;
+use Acme\ControleurAccueil;
+use Acme\Vue;
 
 class Routeur {
 

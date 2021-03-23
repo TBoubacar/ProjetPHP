@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-require_once 'Modele/Convocation.php';
+require_once 'Modele/Joueur.php';
 require_once 'Vue/Vue.php';
 
 class ControleurJoueur {

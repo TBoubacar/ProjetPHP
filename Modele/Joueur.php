@@ -9,7 +9,7 @@ use Acme\Modele;
 class Joueur extends Modele {
     
     public function getJoueur(string $idJoueur) {
-        $sql = "SELECT * FROM Joueur WHERE idJoueur = ? ";
+        $sql = "SELECT J.nom, J.prenom, J.etatJoueur, J.licence, C.nom AS nomClub FROM Joueur J JOIN Club C ON J.clubId = C.idClub WHERE idJoueur = ? ";
         $joueur = $this->executeRequete($sql, array(intval($idJoueur)));
         if ($joueur->rowCount() > 0)
             return $joueur;
@@ -17,8 +17,8 @@ class Joueur extends Modele {
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR LE JOUEURS
     
     public function getJoueurs (string $idClub) {
-        $sql = "SELECT * FROM Joueur WHERE clubId = ?";
-        $joueurs = $this->executeRequete($sql, array($idClub));
+        $sql = "SELECT J.nom, J.prenom, J.etatJoueur, J.licence, C.nom AS nomClub FROM Joueur J JOIN Club C ON J.clubId = C.idClub WHERE clubId = ?";
+        $joueurs = $this->executeRequete($sql, array(intval($idClub)));
         if ($joueurs->rowCount() > 0)
             return $joueurs;
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");

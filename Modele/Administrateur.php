@@ -8,15 +8,25 @@ use Acme\Modele;
 
 class Administrateur extends Modele {
     
-    public function getAdministrateur(string $idAmin) {
-        $sql = "SELECT * FROM Administrateur WHERE idAdmin = ? ";
-        $administrateur = $this->executeRequete($sql, array(intval($idAmin)));
+    public function getAdministrateurById(string $idAdmin) {
+        $idAdmin = intval($idAdmin);
+        $sql = "SELECT A.idAmin, A.poste, A.nom, A.prenom, A.categorie, C.nom AS nomClub, C.adresse FROM Administrateur A JOIN Club C ON A.clubId = C.idClub WHERE A.idAdmin= ?";
+        $administrateur = $this->executeRequete($sql, array($idAdmin));
         if ($administrateur->rowCount() > 0)
             return $administrateur;
-        else throw new Exception("Pas d'Administrateur avec l'identifiant ". $idAmin ." dans la Base de données !");
+        else throw new Exception("L'Administrateur avec demandé n'existe pas dans la Base de données !");
+    } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR L'ADMINISTRATEUR
+    
+    public function getAdministrateur(string $logAdmin, string $passAdmin) {
+        $sql = "SELECT A.idAmin, A.poste, A.nom, A.prenom, A.categorie, C.nom AS nomClub, C.adresse FROM Administrateur A JOIN Club C ON A.clubId = C.idClub WHERE A.login = ? AND A.passWord = ?";
+        $administrateur = $this->executeRequete($sql, array($logAdmin, $passAdmin));
+        if ($administrateur->rowCount() > 0)
+            return $administrateur;
+        else throw new Exception("Erreur de connexion de l'Administrateur avec l'identifiant ". $logAdmin ." dans la Base de données !");
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR L'ADMINISTRATEUR
     
     public function getAdministrateurs(string $idClub) {
+        $idClub = intval($idClub);
         $sql = "SELECT * FROM Administrateur WHERE clubId = ?";
         $administrateurs = $this->executeRequete($sql, array($idClub));
         if ($administrateurs->rowCount() > 0)

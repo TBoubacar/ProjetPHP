@@ -9,7 +9,8 @@ use Acme\Modele;
 class Club extends Modele {
     
     public function getClub(string $idClub) {
-        $sql = "SELECT * FROM Club WHERE idClub = ? ";
+        $idClub = intval($idClub);
+        $sql = "SELECT nom, adresse FROM Club WHERE idClub = ? ";
         $club = $this->executeRequete($sql, array($idClub));
         if ($club->rowCount() > 0)
             return $club;
@@ -17,7 +18,7 @@ class Club extends Modele {
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR LE CLUB
     
     public function getClubs() {
-        $sql = "SELECT * FROM Club";
+        $sql = "SELECT nom, adresse FROM Club";
         $clubs = $this->executeRequete($sql);
         if ($clubs->rowCount() > 0)
             return $clubs;

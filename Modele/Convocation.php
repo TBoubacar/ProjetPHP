@@ -9,7 +9,7 @@ use Acme\Modele;
 class Convocation extends Modele {
     
     public function getConvocation(string $idConvocation) {
-        $sql = "SELECT * FROM Convocation WHERE idConvocation = ? ";
+        $sql = "SELECT C.lieu AS adresse, C.jour, J.nom, J.prenom, E.nom AS nomEquipe FROM Convocation C NATURAL JOIN Joueur J JOIN Equipe E ON E.idEquipe = C.idEquipe WHERE C.idConvocation = ? ";
         $convocation= $this->executeRequete($sql, array(intval($idConvocation)));
         if ($convocation->rowCount() > 0)
             return $convocation;
@@ -17,8 +17,8 @@ class Convocation extends Modele {
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR LA CONVOCATION
     
     public function getConvocations(string $idJoueur) {
-        $sql = "SELECT * FROM Convocation WHERE idJoueur = ?";
-        $convocations = $this->executeRequete($sql, array($idJoueur));
+        $sql = "SELECT C.lieu AS adresse, C.jour, J.nom, J.prenom, E.nom AS nomEquipe FROM Convocation C NATURAL JOIN Joueur J JOIN Equipe E ON E.idEquipe = C.idEquipe WHERE idJoueur = ?";
+        $convocations = $this->executeRequete($sql, array(intval($idJoueur)));
         if ($convocations->rowCount() > 0)
             return $convocations;
         else throw new Exception("Pas de Convocations (Matchs) pour le joueur d'identifiant ". $idJoueur ." dans la Base de données !");

@@ -9,7 +9,7 @@ use Acme\Modele;
 class Rencontre extends Modele {
     
     public function getRencontre(string $idRencontre) {
-        $sql = "SELECT * FROM Rencontre WHERE idRencontre = ? ";
+        $sql = "SELECT R.adresse, R.dateRencontre, E.nom AS nomE1, E2.nom AS nomE2 FROM Rencontre R JOIN Equipe E ON R.idEquipe1 = E.idEquipe JOIN Equipe E2 ON R.idEquipe2 = E2.idEquipe WHERE idRencontre = ? ";
         $rencontre= $this->executeRequete($sql, array(intval($idRencontre)));
         if ($rencontre->rowCount() > 0)
             return $rencontre;
@@ -17,7 +17,8 @@ class Rencontre extends Modele {
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR LA RENCONTRE
     
     public function getRencontres (string $idEquipe) {
-        $sql = "SELECT * FROM Rencontre WHERE idEquipe1 = ? OR idEquipe2 = ?";
+        $idEquipe = intval($idEquipe);
+        $sql = "SELECT R.adresse, R.dateRencontre, E.nom AS nomE1, E2.nom AS nomE2 FROM Rencontre R JOIN Equipe E ON R.idEquipe1 = E.idEquipe JOIN Equipe E2 ON R.idEquipe2 = E2.idEquipe WHERE idEquipe1 = ? OR idEquipe2 = ?";
         $rencontres = $this->executeRequete($sql, array($idEquipe, $idEquipe));
         if ($rencontres->rowCount() > 0)
             return $rencontres;

@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : ven. 19 mars 2021 à 01:26
+-- Généré le : mar. 23 mars 2021 à 01:35
 -- Version du serveur :  10.3.27-MariaDB-0+deb10u1
--- Version de PHP : 7.4.14
+-- Version de PHP : 7.3.19-1~deb10u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `projetPHPBDD`
+-- Base de données : `projetPHP`
 --
 
 -- --------------------------------------------------------
@@ -28,7 +27,6 @@ SET time_zone = "+00:00";
 -- Structure de la table `Administrateur`
 --
 
-DROP TABLE IF EXISTS `Administrateur`;
 CREATE TABLE `Administrateur` (
   `idAdmin` int(11) NOT NULL,
   `poste` enum('SECRETAIRE','ENTRAINEUR') COLLATE utf8_bin NOT NULL,
@@ -36,32 +34,27 @@ CREATE TABLE `Administrateur` (
   `prenom` varchar(30) COLLATE utf8_bin NOT NULL,
   `categorie` varchar(30) COLLATE utf8_bin NOT NULL DEFAULT 'Senior',
   `clubId` int(11) NOT NULL,
-  `passWord` varchar(30) COLLATE utf8_bin NOT NULL DEFAULT 'MotDePasseAdmin'
+  `passWord` varchar(30) COLLATE utf8_bin NOT NULL DEFAULT 'MotDePasseAdmin',
+  `login` varchar(30) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- RELATIONS POUR LA TABLE `Administrateur`:
---   `clubId`
---       `Club` -> `idClub`
---
 
 --
 -- Déchargement des données de la table `Administrateur`
 --
 
-INSERT INTO `Administrateur` (`idAdmin`, `poste`, `nom`, `prenom`, `categorie`, `clubId`, `passWord`) VALUES
-(1, 'SECRETAIRE', 'TOURE', 'Boubacar', 'Senior', 1, 'MotDePasseAdmin'),
-(2, 'ENTRAINEUR', 'TOURE', 'Siriman', 'Senior', 1, 'MotDePasseAdmin'),
-(3, 'SECRETAIRE', 'Barro', 'Juliette', 'Senior', 2, 'MotDePasseAdmin'),
-(4, 'ENTRAINEUR', 'TRAORE', 'Hamidou', 'Senior', 2, 'MotDePasseAdmin'),
-(5, 'SECRETAIRE', 'TRAORE', 'Hamalah', 'Senior', 3, 'MotDePasseAdmin'),
-(6, 'ENTRAINEUR', 'TOURE', 'Hameye', 'Senior', 3, 'MotDePasseAdmin'),
-(7, 'SECRETAIRE', 'BAH', 'Diarrah', 'Senior', 4, 'MotDePasseAdmin'),
-(8, 'ENTRAINEUR', 'HENRY', 'Thierry', 'Senior', 4, 'MotDePasseAdmin'),
-(9, 'SECRETAIRE', 'TOURE', 'Badra', 'Senior', 5, 'MotDePasseAdmin'),
-(10, 'ENTRAINEUR', 'TOURE', 'Moussa', 'Senior', 5, 'MotDePasseAdmin'),
-(11, 'SECRETAIRE', 'THOMAS', 'Tuchel', 'Senior', 6, 'MotDePasseAdmin'),
-(12, 'ENTRAINEUR', 'ZIDANE', 'ZINEDINE', 'Senior', 6, 'MotDePasseAdmin');
+INSERT INTO `Administrateur` (`idAdmin`, `poste`, `nom`, `prenom`, `categorie`, `clubId`, `passWord`, `login`) VALUES
+(1, 'SECRETAIRE', 'TOURE', 'Boubacar', 'Senior', 1, 'MotDePasseAdmin', 'A0001'),
+(2, 'ENTRAINEUR', 'TOURE', 'Siriman', 'Senior', 1, 'MotDePasseAdmin', 'A0002'),
+(3, 'SECRETAIRE', 'Barro', 'Juliette', 'Senior', 2, 'MotDePasseAdmin', 'A0003'),
+(4, 'ENTRAINEUR', 'TRAORE', 'Hamidou', 'Senior', 2, 'MotDePasseAdmin', 'A0004'),
+(5, 'SECRETAIRE', 'TRAORE', 'Hamalah', 'Senior', 3, 'MotDePasseAdmin', 'A0005'),
+(6, 'ENTRAINEUR', 'TOURE', 'Hameye', 'Senior', 3, 'MotDePasseAdmin', 'A0006'),
+(7, 'SECRETAIRE', 'BAH', 'Diarrah', 'Senior', 4, 'MotDePasseAdmin', 'A0007'),
+(8, 'ENTRAINEUR', 'HENRY', 'Thierry', 'Senior', 4, 'MotDePasseAdmin', 'A0008'),
+(9, 'SECRETAIRE', 'TOURE', 'Badra', 'Senior', 5, 'MotDePasseAdmin', 'A0009'),
+(10, 'ENTRAINEUR', 'TOURE', 'Moussa', 'Senior', 5, 'MotDePasseAdmin', 'A0010'),
+(11, 'SECRETAIRE', 'THOMAS', 'Tuchel', 'Senior', 6, 'MotDePasseAdmin', 'A0011'),
+(12, 'ENTRAINEUR', 'ZIDANE', 'ZINEDINE', 'Senior', 6, 'MotDePasseAdmin', 'A0012');
 
 -- --------------------------------------------------------
 
@@ -69,16 +62,11 @@ INSERT INTO `Administrateur` (`idAdmin`, `poste`, `nom`, `prenom`, `categorie`, 
 -- Structure de la table `Club`
 --
 
-DROP TABLE IF EXISTS `Club`;
 CREATE TABLE `Club` (
   `idClub` int(11) NOT NULL,
   `nom` varchar(30) COLLATE utf8_bin NOT NULL,
   `adresse` varchar(30) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- RELATIONS POUR LA TABLE `Club`:
---
 
 --
 -- Déchargement des données de la table `Club`
@@ -98,7 +86,6 @@ INSERT INTO `Club` (`idClub`, `nom`, `adresse`) VALUES
 -- Structure de la table `Convocation`
 --
 
-DROP TABLE IF EXISTS `Convocation`;
 CREATE TABLE `Convocation` (
   `IdConvocation` int(11) NOT NULL,
   `joueurId` int(11) NOT NULL,
@@ -106,30 +93,17 @@ CREATE TABLE `Convocation` (
   `jour` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
---
--- RELATIONS POUR LA TABLE `Convocation`:
---   `joueurId`
---       `Joueur` -> `idJoueur`
---
-
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `Equipe`
 --
 
-DROP TABLE IF EXISTS `Equipe`;
 CREATE TABLE `Equipe` (
   `idEquipe` int(11) NOT NULL,
   `nom` varchar(30) COLLATE utf8_bin NOT NULL,
   `clubId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- RELATIONS POUR LA TABLE `Equipe`:
---   `clubId`
---       `Club` -> `idClub`
---
 
 --
 -- Déchargement des données de la table `Equipe`
@@ -154,7 +128,6 @@ INSERT INTO `Equipe` (`idEquipe`, `nom`, `clubId`) VALUES
 -- Structure de la table `Joueur`
 --
 
-DROP TABLE IF EXISTS `Joueur`;
 CREATE TABLE `Joueur` (
   `idJoueur` int(11) NOT NULL,
   `licence` enum('OUI','NON') COLLATE utf8_bin NOT NULL DEFAULT 'OUI',
@@ -164,12 +137,6 @@ CREATE TABLE `Joueur` (
   `clubId` int(11) NOT NULL,
   `passWord` varchar(30) COLLATE utf8_bin NOT NULL DEFAULT 'MotDePasseJoueur'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- RELATIONS POUR LA TABLE `Joueur`:
---   `clubId`
---       `Club` -> `idClub`
---
 
 --
 -- Déchargement des données de la table `Joueur`
@@ -263,7 +230,6 @@ INSERT INTO `Joueur` (`idJoueur`, `licence`, `nom`, `prenom`, `etatJoueur`, `clu
 -- Structure de la table `Rencontre`
 --
 
-DROP TABLE IF EXISTS `Rencontre`;
 CREATE TABLE `Rencontre` (
   `IdRencontre` int(11) NOT NULL,
   `idEquipe1` int(11) NOT NULL,
@@ -271,14 +237,6 @@ CREATE TABLE `Rencontre` (
   `adresse` varchar(30) COLLATE utf8_bin NOT NULL,
   `dateRencontre` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- RELATIONS POUR LA TABLE `Rencontre`:
---   `idEquipe1`
---       `Equipe` -> `idEquipe`
---   `idEquipe2`
---       `Equipe` -> `idEquipe`
---
 
 --
 -- Index pour les tables déchargées
@@ -289,6 +247,7 @@ CREATE TABLE `Rencontre` (
 --
 ALTER TABLE `Administrateur`
   ADD PRIMARY KEY (`idAdmin`,`poste`),
+  ADD UNIQUE KEY `login_unique_index` (`login`),
   ADD KEY `fk_Administrateur_Club` (`clubId`);
 
 --

@@ -1,1 +1,11 @@
+body {
+    background-image: url('../img/terrain-foot.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
 
+
+#page-accueil{
+	height: 75vh;
+}

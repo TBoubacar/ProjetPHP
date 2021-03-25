@@ -18,18 +18,19 @@ INSERT INTO Club (nom, adresse) VALUES ('Nice FC', 'Nice');
 INSERT INTO Club (nom, adresse) VALUES ('Monaco FC', 'Monaco');
 
 /*--			DANS LA TABLE Administrateur	*/
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('SECRETAIRE', 'TOURE', 'Boubacar', 'Senior', 1);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('ENTRAINEUR', 'TOURE', 'Siriman', 'Senior', 1);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('SECRETAIRE', 'Barro', 'Juliette', 'Senior', 2);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('ENTRAINEUR', 'TRAORE', 'Hamidou', 'Senior', 2);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('SECRETAIRE', 'TRAORE', 'Hamalah', 'Senior', 3);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('ENTRAINEUR', 'TOURE', 'Hameye', 'Senior', 3);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('SECRETAIRE', 'BAH', 'Diarrah', 'Senior', 4);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('ENTRAINEUR', 'HENRY', 'Thierry', 'Senior', 4);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('SECRETAIRE', 'TOURE', 'Badra', 'Senior', 5);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('ENTRAINEUR', 'TOURE', 'Moussa', 'Senior', 5);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('SECRETAIRE', 'THOMAS', 'Tuchel', 'Senior', 6);
-INSERT INTO Administrateur (poste, nom, prenom, categorie, clubId) VALUES ('ENTRAINEUR', 'ZIDANE', 'ZINEDINE', 'Senior', 6);
+INSERT INTO `Administrateur` (`idAdmin`, `poste`, `nom`, `prenom`, `categorie`, `clubId`, `passWord`, `login`) VALUES
+(1, 'SECRETAIRE', 'TOURE', 'Boubacar', 'Senior', 1, 'MotDePasseAdmin', 'A0001'),
+(2, 'ENTRAINEUR', 'TOURE', 'Siriman', 'Senior', 1, 'MotDePasseAdmin', 'A0002'),
+(3, 'SECRETAIRE', 'Barro', 'Juliette', 'Senior', 2, 'MotDePasseAdmin', 'A0003'),
+(4, 'ENTRAINEUR', 'TRAORE', 'Hamidou', 'Senior', 2, 'MotDePasseAdmin', 'A0004'),
+(5, 'SECRETAIRE', 'TRAORE', 'Hamalah', 'Senior', 3, 'MotDePasseAdmin', 'A0005'),
+(6, 'ENTRAINEUR', 'TOURE', 'Hameye', 'Senior', 3, 'MotDePasseAdmin', 'A0006'),
+(7, 'SECRETAIRE', 'BAH', 'Diarrah', 'Senior', 4, 'MotDePasseAdmin', 'A0007'),
+(8, 'ENTRAINEUR', 'HENRY', 'Thierry', 'Senior', 4, 'MotDePasseAdmin', 'A0008'),
+(9, 'SECRETAIRE', 'TOURE', 'Badra', 'Senior', 5, 'MotDePasseAdmin', 'A0009'),
+(10, 'ENTRAINEUR', 'TOURE', 'Moussa', 'Senior', 5, 'MotDePasseAdmin', 'A0010'),
+(11, 'SECRETAIRE', 'THOMAS', 'Tuchel', 'Senior', 6, 'MotDePasseAdmin', 'A0011'),
+(12, 'ENTRAINEUR', 'ZIDANE', 'ZINEDINE', 'Senior', 6, 'MotDePasseAdmin', 'A0012');
 
 /*--			DANS LA TABLE Equipe			*/
 INSERT INTO Equipe (nom, clubId) VALUES ('Equipe A', 1);

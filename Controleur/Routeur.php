@@ -47,7 +47,11 @@ class Routeur {
     public function routerRequete() {
         try {
             if (isset($_GET['action'])){
-                if ($_GET['action'] == 'connect'){
+
+                if ($_GET['action'] == 'accueil'){
+                $this->ctrlAccueil->accueil();
+                }
+                else if ($_GET['action'] == 'connect'){
                 $this->ctrlConnect->connect();
                 }
                 
@@ -56,10 +60,7 @@ class Routeur {
                     $logAdmin = $this->getParametre($_POST, 'login');
                     $passWord = $this->getParametre($_POST, 'passWord');
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
-                } else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
-			
-				else if($_GET['action'] == 'admin'){
-				}
+                }    
                 else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
                     $this->ctrlAdministrateur->administrateurId($idAdmin);

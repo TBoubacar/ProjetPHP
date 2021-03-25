@@ -20,9 +20,6 @@ use Acme\Vue;*/
 class Routeur {
     private $ctrlAccueil;
     private $ctrlConnexion;
-
-    private $ctrlAdmin;
-
     private $ctrlAdministrateur;
     private $ctrlClub;
     private $ctrlConvocation;
@@ -33,8 +30,6 @@ class Routeur {
     public function __construct() {
         $this->ctrlAccueil = new ControleurAccueil();
         $this->ctrlConnexion = new ControleurConnexion();
-         $this->ctrlAdmin = new ctrlAdmin();
-
         $this->ctrlAdministrateur = new ControleurAdministrateur();
         $this->ctrlClub = new ControleurClub();
         $this->ctrlConvocation= new ControleurConvocation();
@@ -46,19 +41,19 @@ class Routeur {
     // Route une requête entrante : exécution l'action associée
     public function routerRequete() {
         try {
-            if (isset($_GET['action'])){
-                if ($_GET['action'] == 'connexion'){
-                $this->ctrlConnexion->connexion();
-                }
-                else if($_GET['action'] == 'admin'){
-
-                }
+			if (isset($_GET['action'])){
+				if ($_GET['action'] == 'connexion'){
+					$this->ctrlConnexion->connexion();
+				}
+				else if($_GET['action'] == 'admin'){
+				}
                 /*
                 if ($_GET['action'] == 'connexion') {       #DANS LA PAGE DE CONNEXION, ON DOIT OBLIGATOIREMENT AVOIR LES VARIABLES 'login' ET 'passWord'
                     $logAdmin = $this->getParametre($_GET, "login");
                     $passWord = $this->getParametre($_GET, "passWord");
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
-                }*/ else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
+                }*/ 
+                else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
                     $this->ctrlAdministrateur->administrateurId($idAdmin);
                 } else if ($_GET['action'] == 'afficherClubAdministrateur') {   #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Club DE L'ADMINISTRATEUR

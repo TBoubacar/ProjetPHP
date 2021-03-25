@@ -22,9 +22,6 @@ class Routeur {
     private $ctrlAccueil;
     private $ctrlConnect;
     private $ctrlConnexion;
-
-    private $ctrlAdmin;
-
     private $ctrlAdministrateur;
     private $ctrlClub;
     private $ctrlConvocation;
@@ -60,6 +57,10 @@ class Routeur {
                     $passWord = $this->getParametre($_POST, 'passWord');
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
                 } else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
+			
+				else if($_GET['action'] == 'admin'){
+				}
+                else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
                     $this->ctrlAdministrateur->administrateurId($idAdmin);
                 } else if ($_GET['action'] == 'afficherClubAdministrateur') {   #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Club DE L'ADMINISTRATEUR

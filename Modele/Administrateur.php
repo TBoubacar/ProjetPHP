@@ -18,7 +18,7 @@ class Administrateur extends Modele {
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR L'ADMINISTRATEUR
     
     public function getAdministrateur(string $logAdmin, string $passAdmin) {
-        $sql = "SELECT A.idAmin, A.poste, A.nom, A.prenom, A.categorie, C.nom AS nomClub, C.adresse FROM Administrateur A JOIN Club C ON A.clubId = C.idClub WHERE A.login = ? AND A.passWord = ?";
+        $sql = "SELECT A.idAdmin, A.poste, A.nom, A.prenom, A.categorie, C.nom AS nomClub, C.adresse FROM Administrateur A JOIN Club C ON A.clubId = C.idClub WHERE A.login = ? AND A.passWord = ?";
         $administrateur = $this->executeRequete($sql, array($logAdmin, $passAdmin));
         if ($administrateur->rowCount() > 0)
             return $administrateur;

@@ -1,21 +1,25 @@
 <?php $this->titre = "Connexion"; ?>
 
 
-    
-        <div id="container">
-            <!-- zone de connexion -->
-            
-            <form action="index.php?action=admin" method="POST">
-                <h1>Connexion</h1>
-                
-                <label><b>Nom d'utilisateur</b></label>
-                <input type="text" placeholder="Entrer le nom d'Utilisateur" name="username" required>
 
-                <label><b>Mot de passe</b></label>
-                <input type="password" placeholder="Entrer le mot de passe" name="password" required>
+<nav class="navbar navbar-expand-sm bg-light">
 
-                <input type="submit" id='submit' value='SE CONNECTER' >
-            
-            </form>
-        </div>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="">Création de convocations</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="">Modification du planning des absences</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="">Calendrier</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " href="">effectifs</a>
+    </li>
+  </ul>
+  
+</nav>
+
+
     

@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once 'Controleur/ControleurAccueil.php';
+require_once 'Controleur/ControleurConnect.php';
 require_once 'Controleur/ControleurConnexion.php';
 require_once 'Controleur/ControleurAdmin.php';
 
@@ -19,6 +20,7 @@ use Acme\Vue;*/
 
 class Routeur {
     private $ctrlAccueil;
+    private $ctrlConnect;
     private $ctrlConnexion;
 
     private $ctrlAdmin;
@@ -33,7 +35,8 @@ class Routeur {
     public function __construct() {
         $this->ctrlAccueil = new ControleurAccueil();
         $this->ctrlConnexion = new ControleurConnexion();
-         $this->ctrlAdmin = new ctrlAdmin();
+        $this->ctrlConnect = new ControleurConnect();
+        $this->ctrlAdmin = new ControleurAdmin();
 
         $this->ctrlAdministrateur = new ControleurAdministrateur();
         $this->ctrlClub = new ControleurClub();
@@ -47,18 +50,16 @@ class Routeur {
     public function routerRequete() {
         try {
             if (isset($_GET['action'])){
-                if ($_GET['action'] == 'connexion'){
-                $this->ctrlConnexion->connexion();
+                if ($_GET['action'] == 'connect'){
+                $this->ctrlConnect->connect();
                 }
-                else if($_GET['action'] == 'admin'){
-
-                }
-                /*
-                if ($_GET['action'] == 'connexion') {       #DANS LA PAGE DE CONNEXION, ON DOIT OBLIGATOIREMENT AVOIR LES VARIABLES 'login' ET 'passWord'
-                    $logAdmin = $this->getParametre($_GET, "login");
-                    $passWord = $this->getParametre($_GET, "passWord");
+                
+                else if ($_GET['action'] == 'connexion') {       #DANS LA PAGE DE CONNEXION, ON DOIT OBLIGATOIREMENT AVOIR LES VARIABLES 'login' ET 'passWord'
+                
+                    $logAdmin = $this->getParametre($_POST, 'login');
+                    $passWord = $this->getParametre($_POST, 'passWord');
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
-                }*/ else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
+                } else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
                     $this->ctrlAdministrateur->administrateurId($idAdmin);
                 } else if ($_GET['action'] == 'afficherClubAdministrateur') {   #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Club DE L'ADMINISTRATEUR

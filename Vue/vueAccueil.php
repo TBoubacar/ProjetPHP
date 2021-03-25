@@ -42,7 +42,7 @@
             
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="index.php?action=connexion">Connexion</a>
+            <a class="nav-link js-scroll-trigger" href="index.php?action=connect">Connexion</a>
           </li>
         </ul>
       </div>

@@ -14,14 +14,17 @@ class ControleurConnexion {
         $this->connexion = new Connexion();
     }
 
+
     public function connexion(string $logAdmin, string $passWord) {
         $admin = $this->connexion->verification($logAdmin, $passWord);
 
-        $nom = $admin["nom"];
-        $prenom = $admin["prenom"];
-        $poste = $admin["poste"];
-        $club = $admin["nomClub"];
-        $adresseClub = $admin["adresse"];
+        $record = $admin->fetch(PDO::FETCH_ASSOC);
+
+        $nom = $record["nom"];
+        $prenom = $record["prenom"];
+        $poste = $record["poste"];
+        $club = $record["nomClub"];
+        $adresseClub = $record["adresse"];
 
         $vue = new Vue("Connexion");
         $vue->generer(array(

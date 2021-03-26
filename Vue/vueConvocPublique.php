@@ -6,6 +6,7 @@
         <th>SITE</th>
         <th>EQUIPE</th>
         <th>CATEGORIE</th>
+        <th>COMPETITION</th>
     </tr>
 </thead>
 <tbody>
@@ -16,6 +17,7 @@
         <td><?= $convoc['adresse'] ?></td>
         <td>SENIOR_A</td>
         <td>SENIOR</td>
+        <td>COUPE DU MONDE</td>
     </tr>
     <?php endforeach; ?>
 </tbody>

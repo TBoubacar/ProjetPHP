@@ -10,7 +10,6 @@ require_once 'Controleur/ControleurClub.php';
 require_once 'Controleur/ControleurConvocation.php';
 require_once 'Controleur/ControleurEquipe.php';
 require_once 'Controleur/ControleurJoueur.php';
-require_once 'Controleur/ControleurRencontre.php';
 
 require_once 'Vue/Vue.php';
 /*require_once __DIR__ . '/../Contenu/vendor/autoload.php';
@@ -66,7 +65,6 @@ class Routeur {
                     $this->ctrlConvocation->creerConvoc();
                 }   
 
-                }
                 /*
                 else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");

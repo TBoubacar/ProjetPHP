@@ -10,7 +10,7 @@ class ControleurClub {
     }
     
     public function club(string $idClub) {
-        $vue = new Vue("Club");
+        $vue = new Vue("Club");    //Pour une mise à jour dans le futur
         $club = $this->club->getClub($idClub);
         $vue->generer(array(
             "nom" => $club["nom"],
@@ -20,7 +20,7 @@ class ControleurClub {
     
     public function clubs() {
         $club = $this->club->getClubs();
-        $vue = new Vue("Clubs");
+        $vue = new Vue("Clubs");    //Pour une mise à jour dans le futur
         $vue->generer(array("clubs" => $club));
     }
 }

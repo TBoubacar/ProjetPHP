@@ -62,10 +62,23 @@ class Routeur {
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
 
                 } else if ($_GET['action'] == 'creerConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
-                    $this->ctrlConvocation->creerConvoc();
-                }   
-
-                /*
+                    $nomClub = $this->getParametre($_POST, 'club');  #ON A DEJA ACCCES À LA VARIABLE Club A CE NIVEAU NORMALEMENT PARCE QU'ON A LES INFORMATIONS SUR UN ADMINISTRATEUR DONT SON CLUB 
+                    $this->ctrlConvocation->creerConvoc($nomClub);
+                } else if ($_GET['action'] == 'creerConvocation') {  #A FAIRE PAR LE SECRETAIRE
+                    #$nomEquipe = $this->getParametre($_POST, 'nomEquipe');     #REFLECHIR AU FAITE D'AJOUTER LE NOM DE L'EQUIPE DANS LA TABLE CONVOCATION_JOUEUR
+                    $idConvocation = $this->getParametre($_POST, 'idConvocation');
+                    $convocation = $this->ctrlConvocation->getRencontresById($idConvocation);
+                    $this->ctrlConvocation->creerConvocation($convocation['adresse'], $convocation['jour'], $convocation['idEquipe']);
+                } else if ($_GET['action'] == 'faireConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
+                    $nomClub = $this->getParametre($_POST, 'club');  #ON A DEJA ACCCES À LA VARIABLE Club A CE NIVEAU NORMALEMENT PARCE QU'ON A LES INFORMATIONS SUR UN ADMINISTRATEUR DONT SON CLUB
+                    $this->ctrlConvocation->faireConvoc($nomClub);
+                } else if ($_GET['action'] == 'faireConvocation') {  #A FAIRE PAR LE SECRETAIRE
+                    $idConvocation = $this->getParametre($_POST, 'idConvocation');
+                    $tabIdJoueur = $this->getParametre($_POST, 'idJoueurConvoquer');
+                    $convocation = $this->ctrlConvocation->getRencontresById($idConvocation);
+                    $this->ctrlConvocation->faireConvocation($idConvocation, $tabIdJoueur);
+                }
+                /*    //Pour une mise à jour dans le futur
                 else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
                     $this->ctrlAdministrateur->administrateurId($idAdmin);

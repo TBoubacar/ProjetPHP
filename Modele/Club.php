@@ -17,6 +17,14 @@ class Club extends Modele {
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR LE CLUB
     
+    public function getClubByName(string $nomClub) {    //On suppose qu'il n'y a pas deux clubs avec le même nom
+        $sql = "SELECT * FROM Club WHERE nom = ? ";
+        $club = $this->executeRequete($sql, array($nomClub));
+        if ($club->rowCount() > 0)
+            return $club->fetch(PDO::FETCH_ASSOC);
+            else throw new Exception("Le nom de Club ". $nomClub ." n'existe pas dans notre Base de données !");
+    } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR LE CLUB
+    
     public function getClubs() {
         $sql = "SELECT nom, adresse FROM Club";
         $clubs = $this->executeRequete($sql);

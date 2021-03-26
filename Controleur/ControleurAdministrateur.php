@@ -12,7 +12,7 @@ class ControleurAdministrateur {
     
     public function administrateurIdClub (string $idClub) {
         $admin = $this->administrateur->getAdministrateurs($idClub);
-        $vue = new Vue("Adminstrateurs");
+        $vue = new Vue("Adminstrateurs");     //Pour une mise à jour dans le futur
         $vue->generer(array("administrateurs" => $admin));
     }
     
@@ -25,7 +25,7 @@ class ControleurAdministrateur {
         $club = $admin["nomClub"];
         $adresseClub = $admin["adresse"];
         
-        $vue = new Vue("Adminstrateur");
+        $vue = new Vue("Adminstrateur");    //Pour une mise à jour dans le futur
         $vue->generer(array(
             "nom" => $nom,
             "prenom" => $prenom,
@@ -44,7 +44,7 @@ class ControleurAdministrateur {
         $club = $admin["nomClub"];
         $adresseClub = $admin["adresse"];
         
-        $vue = new Vue("Adminstrateur");
+        $vue = new Vue("Adminstrateur");    //Pour une mise à jour dans le futur
         $vue->generer(array(
             "nom" => $nom,
             "prenom" => $prenom,

@@ -27,15 +27,27 @@ class Convocation extends Modele {
         else throw new Exception("Pas de Convocation (Match) avec l'identifiant ". $idConvo ." dans la Base de données !");
     }
     
+    public function getRencontreValide() {
+        //$idConvo = intval($idConvo);
+        $sql = "SELECT idConvocation, C.jour as jour, C.adresse, E.idEquipe, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe WHERE C.valide = ? ";
+        $valide = "Valide";
+        $convocation = $this->executeRequete($sql, array($valide));
+        if ($convocation->rowCount() > 0)
+            return $convocation->fetchAll(PDO::FETCH_ASSOC);
+        else throw new Exception("Pas de Convocation (Match) avec l'identifiant ". $idConvo ." dans la Base de données !");
+    }
+
     /*------------SUR LA TABLE CONVOCATION-JOUEUR------------*/
-    public function getConvocation(string $idConvocation) {
-        $sql = "SELECT C.adresse, C.jour, J.nom, J.prenom, CJ.etatJoueur, CL.nom AS nomClub, C.idEquipeAdverse FROM ConvocationJoueur CJ NATURAL JOIN Joueur J JOIN Convocation C ON CJ.IdConvocation = C.IdConvocation JOIN Club CL ON CL.idClub = J.clubId WHERE CJ.idConvocation = ? ";
+    public function getConvocationJoueurs( $idConvocation) {
+        $sql = "SELECT J.nom, J.prenom from ConvocationJoueur CJ JOIN Joueur J on J.idJoueur = CJ.idJoueur where CJ.idConvocation = ? ";
         $convocation= $this->executeRequete($sql, array(intval($idConvocation)));
         if ($convocation->rowCount() > 0)
             return $convocation->fetchAll(PDO::FETCH_ASSOC);
         else throw new Exception("Pas de Convocation (Match) avec l'identifiant ". $idConvocation ." dans la Base de données !");
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR LA CONVOCATION
     
+
+
     public function getConvocations(string $idJoueur) {
         $sql = "SELECT C.adresse, C.jour, J.nom, J.prenom, CJ.etatJoueur, CL.nom AS nomClub FROM ConvocationJoueur CJ NATURAL JOIN Joueur J JOIN Convocation C ON CJ.IdConvocation = C.IdConvocation JOIN Club CL ON CL.idClub = J.clubId WHERE CJ.idJoueur = ?";
         $convocations = $this->executeRequete($sql, array(intval($idJoueur)));

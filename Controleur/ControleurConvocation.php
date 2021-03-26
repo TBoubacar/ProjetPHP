@@ -28,19 +28,7 @@ class ControleurConvocation {
     }
     
     /*----- POUR LA TABLE CONVOCATION_JOUEUR------*/
-    public function convocationJoueur(string $idConvoc) {
-        $convocation = $this->convocation->getConvocation($idConvoc);
-        $vue = new Vue("Convocation");    //Pour une mise à jour dans le futur
-        $vue->generer(array(
-            "nom"   => $convocation["nom"],
-            "prenom"   => $convocation["prenom"],
-            "etatJoueur" => $convocation["etatJoueur"],
-            "club" => $convocation["nomClub"],
-            "jour"      => $convocation["jour"],
-            "adresse"   => $convocation["adresse"],
-            "idEquipeAdverse" => $convocation["idEquipeAdverse"]
-        ));
-    }
+    
 
     public function convocationsJoueur(string $idJoueur) {
         $convocation = $this->convocation->getConvocations($idJoueur);
@@ -48,10 +36,25 @@ class ControleurConvocation {
         $vue->generer(array("convocationJoueur" => $convocation));
     }
     
-    public function convocationsJoueurs() {
-        $convocations = $this->convocation->getAllConvocations();
+    //LES CONVOCATIONS VALIDES
+    public function convocationsValides() {
+
+        $convocations = $this->convocation->getRencontreValide();
         $vue = new Vue("ConvocPublique");
         $vue->generer(array("convocations" => $convocations));
+    }
+
+    //Les joueurs d'unes convocation spécifique
+    public function convocationJoueurs($idConvoc) {
+        $joueurs=array();
+        if($idConvoc != 0){
+            $joueurs = $this->convocation->getConvocationJoueurs($idConvoc);
+        }
+        
+        $convocations = $this->convocation->getRencontreValide();
+        $vue = new Vue("ListeConvocEtJoueur");
+        $vue->generer(array("convocations" => $convocations,
+                            "joueurs" => $joueurs));
     }
 
     public function creerConvoc(string $nomClub) {

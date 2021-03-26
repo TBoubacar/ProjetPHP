@@ -17,7 +17,7 @@
         <td>
         <select name="idConvocation">
             <?php foreach ($rencontres as $rencontre): ?>
-        	<option value="$rencontre['IdConvocation']"> $rencontre["jour"] | $rencontre["adresse"] | $rencontre["nomEquipeAdverse"]</option>    
+        	<option value="$rencontre['IdConvocation']"> <?= $rencontre["jour"] | $rencontre["adresse"] | $rencontre["nomEquipeAdverse"] ?></option>    
             <?php endforeach; ?>
         </select>
         </td>

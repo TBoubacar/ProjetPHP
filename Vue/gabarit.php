@@ -27,7 +27,7 @@
                 <a class="nav-link text-white" href="index.php?action=accueil">Accueil <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" href="index.php?action=convocPublique">Matchs publiés</a>
+                <a class="nav-link text-white" href="index.php?action=listeJoueurs">Matchs publiés</a>
             </li>
         </ul>
         <ul class="navbar-nav">

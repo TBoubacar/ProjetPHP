@@ -53,7 +53,16 @@ class Routeur {
                 }
 
                 else if ($_GET['action'] == 'convocPublique') {          #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE LA CONVOCATION
-                    $this->ctrlConvocation->convocationsJoueurs();
+                    $this->ctrlConvocation->convocationsValides();
+                }
+
+                else if ($_GET['action'] == 'listeJoueurs') {          #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE LA CONVOCATION
+                    if(isset($_GET['idConvoc'])){
+                        $id = $this->getParametre($_GET, 'idConvoc');
+                        $this->ctrlConvocation->convocationJoueurs($id);
+                    }else{
+                        $this->ctrlConvocation->convocationJoueurs(0);
+                    }
                 }
 
                 else if ($_GET['action'] == 'connexion') {       #DANS LA PAGE DE CONNEXION, ON DOIT OBLIGATOIREMENT AVOIR LES VARIABLES 'login' ET 'passWord'
@@ -61,20 +70,28 @@ class Routeur {
                     $passWord = $this->getParametre($_POST, 'passWord');
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
 
-                } else if ($_GET['action'] == 'creerConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
-                    $nomClub = $this->getParametre($_POST, 'club');  #ON A DEJA ACCCES À LA VARIABLE Club A CE NIVEAU NORMALEMENT PARCE QU'ON A LES INFORMATIONS SUR UN ADMINISTRATEUR DONT SON CLUB 
+                } 
+
+                else if ($_GET['action'] == 'creerConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
+                    $nomClub = $this->getParametre($_GET, 'club');  #ON A DEJA ACCCES À LA VARIABLE Club A CE NIVEAU NORMALEMENT PARCE QU'ON A LES INFORMATIONS SUR UN ADMINISTRATEUR DONT SON CLUB 
                     $this->ctrlConvocation->creerConvoc($nomClub);
-                } else if ($_GET['action'] == 'creerConvocation') {  #A FAIRE PAR LE SECRETAIRE
-                    #$nomEquipe = $this->getParametre($_POST, 'nomEquipe');     #REFLECHIR AU FAITE D'AJOUTER LE NOM DE L'EQUIPE DANS LA TABLE CONVOCATION_JOUEUR
+                } 
+
+                else if ($_GET['action'] == 'creerConvocation') {  #A FAIRE PAR LE SECRETAIRE
+                    #$nomEquipe = $this->getParametre($_GET, 'nomEquipe');     #REFLECHIR AU FAITE D'AJOUTER LE NOM DE L'EQUIPE DANS LA TABLE CONVOCATION_JOUEUR
                     $idConvocation = $this->getParametre($_POST, 'idConvocation');
                     $convocation = $this->ctrlConvocation->getRencontresById($idConvocation);
                     $this->ctrlConvocation->creerConvocation($convocation['adresse'], $convocation['jour'], $convocation['idEquipe']);
-                } else if ($_GET['action'] == 'faireConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
-                    $nomClub = $this->getParametre($_POST, 'club');  #ON A DEJA ACCCES À LA VARIABLE Club A CE NIVEAU NORMALEMENT PARCE QU'ON A LES INFORMATIONS SUR UN ADMINISTRATEUR DONT SON CLUB
+                } 
+
+                else if ($_GET['action'] == 'faireConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
+                    $nomClub = $this->getParametre($_GET, 'club');  #ON A DEJA ACCCES À LA VARIABLE Club A CE NIVEAU NORMALEMENT PARCE QU'ON A LES INFORMATIONS SUR UN ADMINISTRATEUR DONT SON CLUB
                     $this->ctrlConvocation->faireConvoc($nomClub);
-                } else if ($_GET['action'] == 'faireConvocation') {  #A FAIRE PAR LE SECRETAIRE
-                    $idConvocation = $this->getParametre($_POST, 'idConvocation');
-                    $tabIdJoueur = $this->getParametre($_POST, 'idJoueurConvoquer');
+                } 
+
+                else if ($_GET['action'] == 'faireConvocation') {  #A FAIRE PAR LE SECRETAIRE
+                    $idConvocation = $this->getParametre($_GET, 'idConvocation');
+                    $tabIdJoueur = $this->getParametre($_GET, 'idJoueurConvoquer');
                     $convocation = $this->ctrlConvocation->getRencontresById($idConvocation);
                     $this->ctrlConvocation->faireConvocation($idConvocation, $tabIdJoueur);
                 }

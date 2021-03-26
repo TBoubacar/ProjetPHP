@@ -13,7 +13,7 @@ class Club extends Modele {
         $sql = "SELECT nom, adresse FROM Club WHERE idClub = ? ";
         $club = $this->executeRequete($sql, array($idClub));
         if ($club->rowCount() > 0)
-            return $club->fetchAll();
+            return $club->fetch(PDO::FETCH_ASSOC);
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR LE CLUB
     
@@ -21,7 +21,7 @@ class Club extends Modele {
         $sql = "SELECT nom, adresse FROM Club";
         $clubs = $this->executeRequete($sql);
         if ($clubs->rowCount() > 0)
-            return $clubs->fetchAll();
+            return $clubs->fetchAll(PDO::FETCH_ASSOC);
         else throw new Exception("Pas de Club dans la Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR TOUS LES CLUBS
 }

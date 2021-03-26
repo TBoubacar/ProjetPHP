@@ -12,7 +12,7 @@ class Joueur extends Modele {
         $sql = "SELECT J.nom, J.prenom, J.etatJoueur, J.licence, C.nom AS nomClub FROM Joueur J JOIN Club C ON J.clubId = C.idClub WHERE idJoueur = ? ";
         $joueur = $this->executeRequete($sql, array(intval($idJoueur)));
         if ($joueur->rowCount() > 0)
-            return $joueur->fetchAll();
+            return $joueur->fetch(PDO::FETCH_ASSOC);
         else throw new Exception("Pas de joueur avec l'identifiant ". $idJoueur ." dans notre Base de données !");
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR LE JOUEURS
     
@@ -20,8 +20,13 @@ class Joueur extends Modele {
         $sql = "SELECT J.nom, J.prenom, J.etatJoueur, J.licence, C.nom AS nomClub FROM Joueur J JOIN Club C ON J.clubId = C.idClub WHERE clubId = ?";
         $joueurs = $this->executeRequete($sql, array(intval($idClub)));
         if ($joueurs->rowCount() > 0)
-            return $joueurs->fetchAll();
+            return $joueurs->fetchAll(PDO::FETCH_ASSOC);
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");
     } #CECI RETOURNE UN TABLEAU CONTENANT LES INFOS SUR TOUS LES JOUEURS DU CLUB
+    
+    public function ajoutJoueur (string $nom, string $prenom, string $clubId, string $mdp="", string $licence="OUI") {
+        $sql = "INSERT INTO `Joueur` (licence, nom, prenom, clubId, passWord) VALUES (?, ?)";
+        $this->executeRequete($sql, array($licence, $nom, $prenom, intval($clubId)));
+    }
 }
 ?>

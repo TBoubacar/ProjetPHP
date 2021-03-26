@@ -15,7 +15,7 @@ class Equipe extends Modele {
         $sql = "SELECT E.nom, C.nom AS nomClub FROM Equipe E JOIN Club C ON E.clubId = C.idClub WHERE idEquipe = ? ";
         $equipe = $this->executeRequete($sql, array($idEquipe));
         if ($equipe->rowCount() > 0)
-            return $equipe->fetchAll();
+            return $equipe->fetch(PDO::FETCH_ASSOC);
         else throw new Exception("Pas d'Equipe avec l'identifiant ". $idEquipe ." dans la Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR L'EQUIPE
     
@@ -24,8 +24,13 @@ class Equipe extends Modele {
         $sql = "SELECT E.nom, C.nom AS nomClub FROM Equipe E JOIN Club C ON E.clubId = C.idClub WHERE E.clubId = ? ";
         $equipes = $this->executeRequete($sql, array($idClub));
         if ($equipes->rowCount() > 0)
-            return $equipes->fetchAll();
+            return $equipes->fetchAll(PDO::FETCH_ASSOC);
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR TOUS LES EQUIPES DU CLUB
+    
+    public function ajoutEquipe(string $equipe, string $clubId) {
+        $sql = "INSERT INTO `Equipe` (nom, clubId) VALUES (?, ?)";
+        $this->executeRequete($sql, array($equipe, intval($clubId)));
+    }
 }
 ?>

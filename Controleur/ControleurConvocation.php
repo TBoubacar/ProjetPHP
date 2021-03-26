@@ -10,7 +10,7 @@ class ControleurConvocation {
         $this->convocation = new Convocation();
     }
     
-    public function convocation(string $idConvoc) {
+    public function convocation($idConvoc) {
         $convocation = $this->convocation->getConvocation($idConvoc);
         $vue = new Vue("Convocation");
         $vue->generer(array(
@@ -22,10 +22,19 @@ class ControleurConvocation {
         ));
     }
     
-    public function convocations(string $idJoueur) {
+    public function convocations($idJoueur) {
         $convocation = $this->convocation->getConvocations($idJoueur);
         $vue = new Vue("Convocations");
         $vue->generer(array("convocations" => $convocation));
+    }
+    public function convocPublique() {
+        $vue = new Vue("ConvocPublique");
+        $vue->generer(array());
+    }
+
+    public function creerConvoc() {
+        $vue = new Vue("CreerConvoc");
+        $vue->generer(array());
     }
 }
 ?>

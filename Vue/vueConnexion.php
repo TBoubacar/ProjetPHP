@@ -3,7 +3,7 @@
 
 <?php
   if ($poste=='ENTRAINEUR') {
-    $action = '<li class="nav-item"><a class="nav-link" href="">Convocations</a></li>
+    $action = '<li class="nav-item"><a class="nav-link" href="index.php?action=creerConvoc">Convocations</a></li>
               <li class="nav-item"><a class="nav-link" href="">Planning</a></li>
               <li class="nav-item"><a class="nav-link " href="">Calendrier</a></li>';
   } else {

@@ -10,7 +10,6 @@ require_once 'Controleur/ControleurClub.php';
 require_once 'Controleur/ControleurConvocation.php';
 require_once 'Controleur/ControleurEquipe.php';
 require_once 'Controleur/ControleurJoueur.php';
-require_once 'Controleur/ControleurRencontre.php';
 
 require_once 'Vue/Vue.php';
 /*require_once __DIR__ . '/../Contenu/vendor/autoload.php';
@@ -52,11 +51,20 @@ class Routeur {
                 else if ($_GET['action'] == 'connect'){
                     $this->ctrlConnect->connect();
                 }
+
+                else if ($_GET['action'] == 'convocPublique') {          #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE LA CONVOCATION
+                    $this->ctrlConvocation->convocationsJoueurs();
+                }
+
                 else if ($_GET['action'] == 'connexion') {       #DANS LA PAGE DE CONNEXION, ON DOIT OBLIGATOIREMENT AVOIR LES VARIABLES 'login' ET 'passWord'
                     $logAdmin = $this->getParametre($_POST, 'login');
                     $passWord = $this->getParametre($_POST, 'passWord');
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
-                }
+
+                } else if ($_GET['action'] == 'creerConvoc') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
+                    $this->ctrlConvocation->creerConvoc();
+                }   
+
                 /*
                 else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
@@ -71,6 +79,10 @@ class Routeur {
                     $this->ctrlClub->club($idClub);
                 } else if ($_GET['action'] == 'afficherAllClub') {
                     $this->ctrlClub->clubs();
+                } else if ($_GET['action'] == 'convocation') {          #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE LA CONVOCATION
+                    $idConvocation = $this->getParametre($_GET, "id");
+                    $this->ctrlConvocation->convocation($idConvocation);
+
                 } else if ($_GET['action'] == 'afficherAllConvocation') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
                     $this->ctrlConvocation->convocationsJoueurs();
                 } else if ($_GET['action'] == 'afficherEquipe') {               #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'EQUIPE

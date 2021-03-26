@@ -10,7 +10,7 @@ class ControleurConvocation {
         $this->convocation = new Convocation();
     }
     
-    /*------SUR LA CONVOCATION JOUEUR-----*/
+    
     public function convocationJoueur(string $idConvoc) {
         $convocation = $this->convocation->getConvocation($idConvoc);
         $vue = new Vue("Convocation");
@@ -24,7 +24,7 @@ class ControleurConvocation {
             "idEquipeAdverse" => $convocation["idEquipeAdverse"]
         ));
     }
-    
+
     public function convocationsJoueur(string $idJoueur) {
         $convocation = $this->convocation->getConvocations($idJoueur);
         $vue = new Vue("ConvocationJoueur");
@@ -32,9 +32,19 @@ class ControleurConvocation {
     }
     
     public function convocationsJoueurs() {
-        $convocation = $this->convocation->getAllConvocations();
-        $vue = new Vue("Convocations");
-        $vue->generer(array("convocations" => $convocation));
+        $convocations = $this->convocation->getAllConvocations();
+        $vue = new Vue("ConvocPublique");
+        $vue->generer(array("convocations" => $convocations));
+    }
+
+    public function convocPublique() {
+        $vue = new Vue("ConvocPublique");
+        $vue->generer(array());
+    }
+
+    public function creerConvoc() {
+        $vue = new Vue("CreerConvoc");
+        $vue->generer(array());
     }
 }
 ?>

@@ -18,7 +18,7 @@ class ControleurConnexion {
     public function connexion(string $logAdmin, string $passWord) {
         $admin = $this->connexion->verification($logAdmin, $passWord);
 
-        $record = $admin->fetch(PDO::FETCH_ASSOC);
+        //$record = $admin->fetch(PDO::FETCH_ASSOC);
 
         $nom = $record["nom"];
         $prenom = $record["prenom"];

@@ -22,10 +22,10 @@ class ControleurJoueur {
         ));
     }
     
-    public function joueurs(string $idClub, string $nomClub) {
+    public function joueurs(string $idClub) {
         $joueur = $this->joueur->getJoueurs($idClub);
         $vue = new Vue("Joueurs");
-        $vue->generer(array("joueurs" => $joueur, "club" => $nomClub));
+        $vue->generer(array("joueurs" => $joueur, "club" => $joueur["nomClub"][0]));    //A tester après
     }
 }
 ?>

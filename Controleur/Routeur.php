@@ -40,27 +40,24 @@ class Routeur {
         $this->ctrlConvocation= new ControleurConvocation();
         $this->ctrlEquipe= new ControleurEquipe();
         $this->ctrlJoueur= new ControleurJoueur();
-        $this->ctrlRencontre = new ControleurRencontre ();
     }
 
     // Route une requête entrante : exécution l'action associée
     public function routerRequete() {
         try {
             if (isset($_GET['action'])){
-
                 if ($_GET['action'] == 'accueil'){
-                $this->ctrlAccueil->accueil();
+                    $this->ctrlAccueil->accueil();
                 }
                 else if ($_GET['action'] == 'connect'){
-                $this->ctrlConnect->connect();
+                    $this->ctrlConnect->connect();
                 }
-                
                 else if ($_GET['action'] == 'connexion') {       #DANS LA PAGE DE CONNEXION, ON DOIT OBLIGATOIREMENT AVOIR LES VARIABLES 'login' ET 'passWord'
-                
                     $logAdmin = $this->getParametre($_POST, 'login');
                     $passWord = $this->getParametre($_POST, 'passWord');
                     $this->ctrlConnexion->connexion($logAdmin, $passWord);
-                }    
+                }
+                /*
                 else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR
                     $idAdmin = $this->getParametre($_GET, "id");
                     $this->ctrlAdministrateur->administrateurId($idAdmin);
@@ -74,33 +71,22 @@ class Routeur {
                     $this->ctrlClub->club($idClub);
                 } else if ($_GET['action'] == 'afficherAllClub') {
                     $this->ctrlClub->clubs();
-                } else if ($_GET['action'] == 'afficherConvocation') {          #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE LA CONVOCATION
-                    $idConvocation = $this->getParametre($_GET, "id");
-                    $this->ctrlConvocation->convocation($idConvocation);
                 } else if ($_GET['action'] == 'afficherAllConvocation') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' du Joueur POUR LA CONVOCATION
-                    $idJoueur = $this->getParametre($_GET, "id");
-                    $this->ctrlConvocation->convocations($idJoueur);
+                    $this->ctrlConvocation->convocationsJoueurs();
                 } else if ($_GET['action'] == 'afficherEquipe') {               #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'EQUIPE
                     $idEquipe = $this->getParametre($_GET, "id");
                     $this->ctrlEquipe->equipe($idEquipe);
                 } else if ($_GET['action'] == 'afficherClubEquipe') {           #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' et 'nom' DU CLUB dont les Equipes sont à afficher
                     $idClub = $this->getParametre($_GET, "id");
-                    $nomClub = $this->getParametre($_GET, "nom");
-                    $this->ctrlEquipe->equipes($idClub, $nomClub);
+                    $this->ctrlEquipe->equipes($idClub);
                 } else if ($_GET['action'] == 'afficherJoueur') {               #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DU JOUEUR
                     $idJoueur = $this->getParametre($_GET, "id");
                     $this->ctrlJoueur->joueur($idJoueur);
                 } else if ($_GET['action'] == 'afficherClubJoueur') {           #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' et 'nom' DU CLUB dont les JOUEUR sont à afficher
                     $idClub = $this->getParametre($_GET, "id");
-                    $nomClub = $this->getParametre($_GET, "nom");
-                    $this->ctrlJoueur->joueurs($idClub, $nomClub);
-                } else if ($_GET['action'] == 'afficherRencontre') {           #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE LA RENCONTRE
-                    $idRencontre = $this->getParametre($_GET, "id");
-                    $this->ctrlRencontre->rencontre($idRencontre);
-                } else if ($_GET['action'] == 'afficherEquipeRencontre') {     #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' De l'Equipe dont LES RENCONTRES sont à Afficher
-                    $idEquipe = $this->getParametre($_GET, "id");
-                    $this->ctrlRencontre->rencontres($idEquipe);
-                } else throw new Exception("Action non prise en compte !");
+                    $this->ctrlJoueur->joueurs($idClub);
+                } */
+                else throw new Exception("Action non prise en compte !");
             }
             else{
                 // aucune action définie : affichage de l'accueil

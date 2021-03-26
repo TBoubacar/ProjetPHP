@@ -13,14 +13,13 @@ class ControleurEquipe {
     public function equipe (string $idEquipe) {
         $equipe = $this->equipe->getEquipe($idEquipe);
         $vue = new Vue("Equipe");
-        $vue->generer(array("nom" => $equipe["nom"]));
-        #Pas fini, on veut pouvoir afficher tous les joueurs disponibles ou non à l'aide de la table Effectif
+        $vue->generer(array("nom" => $equipe["nom"], "club" => $equipe["nomClub"]));
     }
     
-    public function equipes (string $idClub, string $nomClub) {
+    public function equipes (string $idClub) {
         $equipe = $this->equipe->getEquipes($idClub);
         $vue = new Vue("Equipes");
-        $vue->generer(array("equipes" => $equipe, "club" => $nomClub));
+        $vue->generer(array("equipes" => $equipe, "club" => $equipe["nomClub"][0]));    //A tester après
     }
 }
 ?>

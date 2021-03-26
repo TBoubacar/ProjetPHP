@@ -12,19 +12,19 @@ class Equipe extends Modele {
     
     public function getEquipe(string $idEquipe) {       #ON VEUT AUSSI AVOIR LA LISTE DES JOUEURS DISPO OU NON DE L'EQUIPE
         $idEquipe = intval($idEquipe);
-        $sql = "SELECT * FROM Equipe EQ NATURAL JOIN Effectif EF WHERE EQ.idEquipe = ? ";
+        $sql = "SELECT E.nom, C.nom AS nomClub FROM Equipe E JOIN Club C ON E.clubId = C.idClub WHERE idEquipe = ? ";
         $equipe = $this->executeRequete($sql, array($idEquipe));
         if ($equipe->rowCount() > 0)
-            return $equipe;
+            return $equipe->fetchAll();
         else throw new Exception("Pas d'Equipe avec l'identifiant ". $idEquipe ." dans la Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR L'EQUIPE
     
     public function getEquipes(string $idClub) {
         $idClub = intval($idClub);
-        $sql = "SELECT nom FROM Equipe WHERE clubId = ? ";
+        $sql = "SELECT E.nom, C.nom AS nomClub FROM Equipe E JOIN Club C ON E.clubId = C.idClub WHERE E.clubId = ? ";
         $equipes = $this->executeRequete($sql, array($idClub));
         if ($equipes->rowCount() > 0)
-            return $equipes;
+            return $equipes->fetchAll();
         else throw new Exception("L'identifiant ". $idClub ." n'existe pas dans notre Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR TOUS LES EQUIPES DU CLUB
 }

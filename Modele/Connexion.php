@@ -12,7 +12,7 @@ class Connexion extends Modele {
     public function verification(string $logAdmin, string $passWord) {
         $admin = $this->profil->getAdministrateur($logAdmin, $passWord);
         if ($admin->rowCount() >= 1)
-            return $admin;
+            return $admin->fetchAll();
         else throw new Exception("Erreur de connexion pour l'utilisateur '". $logAdmin . "' !");
     }
 }

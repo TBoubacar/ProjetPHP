@@ -22,7 +22,7 @@ class Club extends Modele {
         $club = $this->executeRequete($sql, array($nomClub));
         if ($club->rowCount() > 0)
             return $club->fetch(PDO::FETCH_ASSOC);
-            else throw new Exception("Le nom de Club ". $nomClub ." n'existe pas dans notre Base de données !");
+        else throw new Exception("Le nom de Club ". $nomClub ." n'existe pas dans notre Base de données !");
     } #CECI RENVOI UN TABLEAU CONTENANT LES INFOS SUR LE CLUB
     
     public function getClubs() {

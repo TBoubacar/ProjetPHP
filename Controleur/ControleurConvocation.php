@@ -20,6 +20,20 @@ class ControleurConvocation {
         else throw new Exception ("Pas de match programmé !");
     }
     
+    public function getRencontresValide(string $idClub) {
+        $rencontre = $this->convocation->getRencontreValideByIdClub($idClub);
+        if (count($rencontre) > 0)
+            return $rencontre;
+        else throw new Exception ("Pas de match programmé !");
+    }
+    
+    public function getRencontresEnCours(string $idClub) {
+        $rencontre = $this->convocation->getRencontreEnCoursByIdClub($idClub);
+        if (count($rencontre) > 0)
+            return $rencontre;
+        else throw new Exception ("Pas de match programmé !");
+    }
+    
     public function getRencontresById(string $idConvoc) {
         $rencontre = $this->convocation->getRencontreById($idConvoc);
         if (count($rencontre) > 0)
@@ -62,12 +76,16 @@ class ControleurConvocation {
         $club = $club->getClubByName($nomClub);
         $equipe = new Equipe();
         $equipes = $equipe->getEquipes($club["idClub"]);
-        
-        $rencontres = $this->getRencontres($club["idClub"]);    #L'ensemble des matchs programmés dans lesquels on n'est pas notre propre adverse
+        #----
+        $rencontres = $this->convocation->getRencontreEnCoursByIdClub($club["idClub"]);    #L'ensemble des matchs programmés dans lesquels on n'est pas notre propre adverse
         $vue = new Vue("CreerConvoc");
         $vue->generer(array("rencontres" => $rencontres, "equipes" => $equipes));
     }
     
+    public function getRencontreEnCoursByIdEquipe(string $idEquipe) {
+        return $this->convocation->getRencontreEnCoursByIdEquipe($idEquipe);
+    }
+
     public function creerConvocation (string $lieu, string $date, string $idEquipeAdverse) {
         $this->convocation->ajoutConvocation($lieu, $date, $idEquipeAdverse);
     }
@@ -78,14 +96,21 @@ class ControleurConvocation {
         $joueurs = new Joueur();
         $joueurs = $joueurs->getJoueurs($club["idClub"]);
         
-        $rencontres = $this->getRencontres($club["idClub"]);    #L'ensemble des matchs programmés dans lesquels on n'est pas notre propre adverse
+        $rencontres = $this->getRencontresValide($club["idClub"]);    #L'ensemble des matchs programmés dans lesquels on n'est pas notre propre adverse
         $vue = new Vue("FaireConvoc");
         $vue->generer(array("rencontres" => $rencontres, "joueurs" => $joueurs));
     }
     
-    public function faireConvocation (string $idConvocation, array $tabIdJoueur) {
+    public function faireConvocation (string $idConvocation, array $tabIdJoueur, string $club) {
         foreach ($tabIdJoueur as $idJoueur)
             $this->convocation->faireConvocation($idConvocation, $idJoueur);
+        $this->faireConvoc($club);
+    }
+
+    public function calendrier(){
+        $convocations = $this->convocation->getConvocs();
+        $vue = new Vue("Calendrier");
+        $vue->generer(array("convocations" => $convocations));
     }
 }
 ?>

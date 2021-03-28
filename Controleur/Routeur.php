@@ -26,14 +26,11 @@ class Routeur {
     private $ctrlConvocation;
     private $ctrlEquipe;
     private $ctrlJoueur;
-    private $ctrlRencontre;
 
     public function __construct() {
         $this->ctrlAccueil = new ControleurAccueil();
         $this->ctrlConnexion = new ControleurConnexion();
         $this->ctrlConnect = new ControleurConnect();
-        $this->ctrlAdmin = new ControleurAdmin();
-
         $this->ctrlAdministrateur = new ControleurAdministrateur();
         $this->ctrlClub = new ControleurClub();
         $this->ctrlConvocation= new ControleurConvocation();
@@ -78,9 +75,9 @@ class Routeur {
                 } 
 
                 else if ($_GET['action'] == 'creerConvocation') {  #A FAIRE PAR LE SECRETAIRE
-                    #$nomEquipe = $this->getParametre($_GET, 'nomEquipe');     #REFLECHIR AU FAITE D'AJOUTER LE NOM DE L'EQUIPE DANS LA TABLE CONVOCATION_JOUEUR
+                    $idEquipe = $this->getParametre($_POST, 'idEquipe');     #REFLECHIR AU FAITE D'AJOUTER LE NOM DE L'EQUIPE DANS LA TABLE CONVOCATION_JOUEUR
                     $idConvocation = $this->getParametre($_POST, 'idConvocation');
-                    $convocation = $this->ctrlConvocation->getRencontresById($idConvocation);
+                    $convocation = $this->ctrlConvocation->getRencontreEnCoursByIdEquipe($idEquipe);
                     $this->ctrlConvocation->creerConvocation($convocation['adresse'], $convocation['jour'], $convocation['idEquipe']);
                 } 
 
@@ -90,10 +87,28 @@ class Routeur {
                 } 
 
                 else if ($_GET['action'] == 'faireConvocation') {  #A FAIRE PAR LE SECRETAIRE
-                    $idConvocation = $this->getParametre($_GET, 'idConvocation');
-                    $tabIdJoueur = $this->getParametre($_GET, 'idJoueurConvoquer');
+                    $idConvocation = $this->getParametre($_POST, 'idConvocation');
+                    $tabIdJoueur = $this->getParametre($_POST, 'idJoueurConvoquer');
                     $convocation = $this->ctrlConvocation->getRencontresById($idConvocation);
-                    $this->ctrlConvocation->faireConvocation($idConvocation, $tabIdJoueur);
+                    $this->ctrlConvocation->faireConvocation($idConvocation, $tabIdJoueur, $convocation['club']);
+                } else if ($_GET['action'] == 'afficheEffectif') {
+                    $nomClub = $this->getParametre($_GET, 'club');
+                    $club = $this->ctrlClub->clubByName($nomClub);                    
+                    $this->ctrlJoueur->joueurs($club['idClub']);
+                }
+                else if($_GET['action'] == 'calendrier') {
+                    $this->ctrlConvocation->calendrier();
+                } else if ($_GET['action'] == 'gestionAbscence') {
+                    $nomclub = $this->getParametre($_GET, 'club');
+                    $club = $this->ctrlClub->clubByName($nomclub);
+                    $this->ctrlJoueur->joueursAbscents($club["idClub"]);
+                } else if ($_GET['action'] == 'gestionAbscenceJoueur') {#ON EST LA
+                    #$nomclub = $this->getParametre($_GET, 'club');
+                    #$club = $this->ctrlClub->getClubByName($nomclub);
+                    $idJoueur = $this->getParametre($_POST, 'idJoueurAbsent');
+                    $date = $this->getParametre($_POST, 'jour');
+                    $etatJoueur = $this->getParametre($_POST, 'etatJoueur');
+                    $this->ctrlJoueur->ajoutJoueursAbscents($idJoueur, $date, $etatJoueur);
                 }
                 /*    //Pour une mise à jour dans le futur
                 else if ($_GET['action'] == 'afficherAdministrateur') {       #ON DOIT OBLIGATOIREMENT AVOIR LA VARIABLE 'id' DE L'ADMINISTRATEUR

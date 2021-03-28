@@ -21,7 +21,7 @@ class Equipe extends Modele {
     
     public function getEquipes(string $idClub) {
         $idClub = intval($idClub);
-        $sql = "SELECT E.nom, C.nom AS nomClub FROM Equipe E JOIN Club C ON E.clubId = C.idClub WHERE E.clubId = ? ";
+        $sql = "SELECT E.idEquipe, E.nom, C.nom AS nomClub FROM Equipe E JOIN Club C ON E.clubId = C.idClub WHERE E.clubId = ? ";
         $equipes = $this->executeRequete($sql, array($idClub));
         if ($equipes->rowCount() > 0)
             return $equipes->fetchAll(PDO::FETCH_ASSOC);

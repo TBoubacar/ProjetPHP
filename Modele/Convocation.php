@@ -10,8 +10,8 @@ class Convocation extends Modele {
     
     /*----DANS LA TABLE CONVOCATION ----*/
     public function getRencontre(string $monIdClub) {
-        $$monIdClub = intval($monIdClub);
-        $sql = "SELECT C.IdConvocation, C.jour, C.adresse, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe JOIN Club CL ON E.clubId = CL.idClub WHERE CL.idClub != ?";
+        $monIdClub = intval($monIdClub);
+        $sql = "SELECT C.IdConvocation, C.jour, C.adresse, CL.nom AS club, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe JOIN Club CL ON E.clubId = CL.idClub WHERE CL.idClub != ?";
         $convocation = $this->executeRequete($sql, array($monIdClub));
         if ($convocation->rowCount() > 0)
             return $convocation->fetchAll(PDO::FETCH_ASSOC);
@@ -20,7 +20,7 @@ class Convocation extends Modele {
     
     public function getRencontreById(string $idConvo) {
         $idConvo = intval($idConvo);
-        $sql = "SELECT C.jour, C.adresse, E.idEquipe, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe WHERE IdConvocation = ? ";
+        $sql = "SELECT C.jour, C.adresse, E.idEquipe, CL.nom AS club, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe JOIN Club CL ON CL.idClub = E.clubId WHERE IdConvocation = ? ";
         $convocation = $this->executeRequete($sql, array($idConvo));
         if ($convocation->rowCount() > 0)
             return $convocation->fetch(PDO::FETCH_ASSOC);
@@ -29,12 +29,39 @@ class Convocation extends Modele {
     
     public function getRencontreValide() {
         //$idConvo = intval($idConvo);
-        $sql = "SELECT idConvocation, C.jour as jour, C.adresse, E.idEquipe, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe WHERE C.valide = ? ";
+        $sql = "SELECT IdConvocation, C.jour as jour, C.adresse, E.idEquipe, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe WHERE C.valide = ? ";
         $valide = "Valide";
         $convocation = $this->executeRequete($sql, array($valide));
         if ($convocation->rowCount() > 0)
             return $convocation->fetchAll(PDO::FETCH_ASSOC);
         else throw new Exception("Pas de Convocation (Match) avec l'identifiant ". $idConvo ." dans la Base de données !");
+    }
+
+    public function getRencontreValideByIdClub(string $monIdClub) {
+        $monIdClub = intval($monIdClub);
+        $sql = "SELECT C.IdConvocation, C.jour, C.adresse, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe JOIN Club CL ON E.clubId = CL.idClub WHERE CL.idClub != ? AND C.valide = ?";
+        $convocation = $this->executeRequete($sql, array($monIdClub, "Valide"));
+        if ($convocation->rowCount() > 0)
+            return $convocation->fetchAll(PDO::FETCH_ASSOC);
+        else throw new Exception("Pas de Convocation (Match) dans la Base de données !");
+    }
+
+    public function getRencontreEnCoursByIdClub(string $monIdClub) {
+        $monIdClub = intval($monIdClub);
+        $sql = "SELECT C.IdConvocation, C.jour, C.adresse, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe JOIN Club CL ON E.clubId = CL.idClub WHERE CL.idClub != ? AND C.valide = ?";
+        $convocation = $this->executeRequete($sql, array($monIdClub, "En cours"));
+        if ($convocation->rowCount() > 0)
+            return $convocation->fetchAll(PDO::FETCH_ASSOC);
+        else throw new Exception("Pas de Convocation (Match) dans la Base de données !");
+    }
+
+    public function getRencontreEnCoursByIdEquipe(string $monIdEquipe) {
+        $monIdEquipe = intval($monIdEquipe);
+        $sql = "SELECT C.IdConvocation, C.jour, C.adresse, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON C.idEquipeAdverse = E.idEquipe JOIN Club CL ON E.clubId = CL.idClub WHERE E.idEquipe != ? AND C.valide = ?";
+        $convocation = $this->executeRequete($sql, array($monIdEquipe, "En cours"));
+        if ($convocation->rowCount() > 0)
+            return $convocation->fetchAll(PDO::FETCH_ASSOC);
+        else throw new Exception("Pas de Convocation (Match) dans la Base de données !");
     }
 
     /*------------SUR LA TABLE CONVOCATION-JOUEUR------------*/
@@ -72,8 +99,16 @@ class Convocation extends Modele {
     
     #ACTION DE L'ENTRAINEUR
     public function faireConvocation(string $idConvoc, string $idJoueur) {
-        $sql = "INSERT INTO `ConvocationJoueur` (idConvocation, idJouuer, etatJoueur) VALUES (?, ?)";
-        $this->executeRequete($sql, array(intval($idConvoc), intval($idJoueur), "D"));
+        $sql = "INSERT INTO `ConvocationJoueur` (idConvocation, idJoueur, etatJoueur) VALUES (?, ?, ?)";
+        $this->executeRequete($sql, array(intval($idConvoc), intval($idJoueur), "P"));
+    }
+
+    public function getConvocs(){
+        $sql = "SELECT C.IdConvocation, C.jour, C.adresse, E.nom AS nomEquipeAdverse FROM Convocation C JOIN Equipe E ON E.idEquipe = C.idEquipeAdverse";
+        $convocation = $this->executeRequete($sql);
+        if ($convocation->rowCount() > 0)
+            return $convocation->fetchAll(PDO::FETCH_ASSOC);
+        else throw new Exception("Pas de Convocation (Match) dans la Base de données !");
     }
 }
 ?>

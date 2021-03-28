@@ -23,8 +23,8 @@
             <?php foreach ($joueurs as $joueur): ?>
             <?php if ($joueur['licence'] == "OUI"): ?>
                 <div class="col-2">
-                    <input type="checkbox" name="idJoueurConvoquer[]" value="$joueur['idJoueur']" id="$joueur['idJoueur']" checked="checked">
-                    <label for="$joueur['idJoueur']"> <?=$joueur['nom']." ".$joueur['prenom']?> </label>
+                    <input type="checkbox" name="idJoueurConvoquer[]" value="<?= $joueur['idJoueur'] ?>" id="$joueur['idJoueur']" checked="checked">
+                    <label for="$joueur['idJoueur']"> <?= $joueur['nom']." ".$joueur['prenom']?> </label>
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>

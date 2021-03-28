@@ -10,7 +10,7 @@
 </thead>
 <tbody>
     <?php foreach ($convocations as $convoc):
-        $id=$convoc['idConvocation'];
+        $id=$convoc['IdConvocation'];
     ?>
         
 	<tr>

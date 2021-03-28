@@ -3,11 +3,11 @@
 <h1>Création d'une convocation</h1>
 <form action="index.php?action=creerConvocation" method="POST">
     <tr>
-        <td><label>Selectionné une Equipe du club (<?= $equipes["nomClub"][0]?>) : </label></td>
+        <td><label>Selectionné une Equipe du club (<?= $equipes[0]["nomClub"]?>) : </label></td>
         <td>
-        <select name="nomEquipe">
+        <select name="idEquipe">
             <?php foreach ($equipes as $equipe): ?>
-        	<option value="$equipe['nom']"> $equipe["nom"]</option>    
+        	<option value="<?= $equipe['idEquipe'] ?>"> <?= $equipe["nom"] ?></option>    
             <?php endforeach; ?>
         </select>
         </td>
@@ -17,7 +17,7 @@
         <td>
         <select name="idConvocation">
             <?php foreach ($rencontres as $rencontre): ?>
-        	<option value="$rencontre['IdConvocation']"> <?= $rencontre["jour"] | $rencontre["adresse"] | $rencontre["nomEquipeAdverse"] ?></option>    
+        	<option value="<?= $rencontre['IdConvocation'] ?>"><?= $rencontre["jour"] ." ". $rencontre["adresse"] ." ". $rencontre["nomEquipeAdverse"] ?></option>    
             <?php endforeach; ?>
         </select>
         </td>

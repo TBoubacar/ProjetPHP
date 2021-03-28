@@ -17,7 +17,9 @@ class ControleurClub {
             "adresse" => $club["adresse"]
         ));
     }
-    
+    public function clubByName(string $nom) {
+        return $this->club->getClubByName($nom);
+    }
     public function clubs() {
         $club = $this->club->getClubs();
         $vue = new Vue("Clubs");    //Pour une mise à jour dans le futur

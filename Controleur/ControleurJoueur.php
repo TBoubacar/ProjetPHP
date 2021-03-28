@@ -25,7 +25,23 @@ class ControleurJoueur {
     public function joueurs(string $idClub) {
         $joueur = $this->joueur->getJoueurs($idClub);
         $vue = new Vue("Joueurs");
-        $vue->generer(array("joueurs" => $joueur, "club" => $joueur["nomClub"][0]));    //A tester après
+        $vue->generer(array("joueurs" => $joueur, "club" => $joueur[0]["nomClub"]));
+    }
+
+    public function joueursBynomClub(string $nomClub) {
+        $joueur = $this->joueur->getJoueursByNomClub($nomClub);
+        $vue = new Vue("Joueurs");
+        $vue->generer(array("joueurs" => $joueur, "club" => $nomClub));
+    }
+
+    public function joueursAbscents(string $idClub) {
+        $joueur = $this->joueur->getJoueursAbscents($idClub);
+        $vue = new Vue("Abscents");
+        $vue->generer(array("joueurs" => $joueur, "club" => $joueur[0]["nomClub"]));
+    }
+    
+    public function ajoutJoueursAbscents(string $idJoueur, string $date, string $etatJoueur) {
+        $this->joueur->ajoutJoueurAbsent($idJoueur, $date, $etatJoueur);
     }
 }
 ?>

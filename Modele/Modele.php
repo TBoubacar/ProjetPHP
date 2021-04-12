@@ -21,13 +21,8 @@ abstract class Modele {
 
     public function getBDD() {
         if ($this->bdd == null) {
-            /*
-             $this->bdd = new PDO('mysql:host=localhost;dbname=projetPHP;charset=utf8',
-                'TBoubacar', 'Bouba@223',
-                array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-             */
             $this->bdd = new PDO('mysql:host=localhost;dbname=projetPHP;charset=utf8',
-                'etudiant', 'etudiant',
+                'username', 'password',
                  array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         } 
         return $this->bdd;
